@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
+var http = require('http');
+var url = require('url');
+
+var static = require('node-static');
 var redis  = require('redis');
+
+var countdown = require('countdown');
 
 function Manager(queueName) {
   var that = this;
@@ -125,6 +131,7 @@ function Manager(queueName) {
             throw 'fixme';
           }
           console.error('zadd(1) succeeded');
+          taskCache[taskId] = taskWhen;
           inPick = false;
           pickTimeoutId = setTimeout(pickTimeout, 0);
         });
@@ -180,6 +187,8 @@ function Manager(queueName) {
       var taskId = result[0];
       var targetTime = parseFloat(result[1]);
 
+      taskCache[taskId] = targetTime;
+
       if(targetTime > now) {
         console.log('next task', taskId, 'only at', targetTime, 'now', now);
         return cb(targetTime, now);
@@ -200,6 +209,7 @@ function Manager(queueName) {
         if(err)
           throw err; // FIXME - handle this properly
         console.log('zadd(2) successful');
+        taskCache[taskId] = tbTime;
         console.error('will check on', taskId, 'at', tbTime);        
         return cb(tbTime, now);
       });
@@ -210,10 +220,64 @@ function Manager(queueName) {
     pickTimeout();
   }
 
+  var taskCache = {};
+
   that.go = function() {
-    handleList();
-    handlezset();
+    zsetClient.zrange(zsetKey, 0, 10000, 'withscores', function(err, result) {
+      if(err) {
+        throw 'FIXME';
+      }
+      var i;
+      for(i = 0; i < result.length; i += 2) {
+        var taskId = result[i];
+        var taskTime = result[i + 1];
+        taskCache[taskId] = taskTime;
+      }
+      console.log(result);
+      handleList();
+      handlezset();
+    });
   };
+
+  http.createServer(function(req, res) {
+    function descTimeRemaining(ta, tb) {
+      var dt = tb - ta;
+      if(dt < 1000)
+        return 'less than 1 second';
+      return countdown(new Date(ta), new Date(tb)).toString(2);
+    }
+
+    var parsedUrl = url.parse(req.url, true);
+    if(parsedUrl.pathname === '/') {
+      var now = new Date();
+      var nowTime = now.getTime();
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write('<html><head></head><body>');
+      res.write('<ul>');
+      var i;
+      for(taskId in taskCache) {
+        var taskTime = taskCache[taskId];
+        res.write('<li>');
+        res.write('<span>'+ taskId+ '</span>');
+        res.write('<span>:</span>');
+        if(nowTime >= taskTime)
+          res.write('<span>just starting</span>');
+        else {
+          if(Math.floor(taskTime) === taskTime)
+            res.write('<span>due in '+ descTimeRemaining(nowTime, taskTime)+ '</span>');
+          else
+            res.write('<span>running, will timeout in '+ descTimeRemaining(nowTime, taskTime)+ '</span>');
+        }
+        res.write('</li>');
+      }
+      res.write('</ul>');
+      res.write('</body></html>');
+      res.end();
+    } else {
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      return res.end('page not found');
+    }
+  }).listen(9999);
 }
 
 var m = new Manager('q');
