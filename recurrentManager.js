@@ -244,7 +244,7 @@ function Manager(queueName) {
       var dt = tb - ta;
       if(dt < 1000)
         return 'less than 1 second';
-      return countdown(new Date(ta), new Date(tb)).toString(2);
+      return countdown(ta, tb).toString(2);
     }
 
     var parsedUrl = url.parse(req.url, true);
