@@ -23,9 +23,17 @@ running the manager
 
 make sure redis is running and then:
 
-`./recurrentManager.js`
+<pre>
+var recurrent = require('recurrent');
 
-browse to `localhost:9999/q` to see the status of queue `q`
+// will manager a queue called q and serve a web UI on port 7654
+
+var m = new recurrent.Manager('q', 7654);
+m.go();
+</pre>
+
+
+browse to `localhost:9999/7654`
 
 starting a recurrent job
 ------------------------
