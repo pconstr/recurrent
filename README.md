@@ -26,7 +26,7 @@ make sure redis is running and then:
 <pre>
 var recurrent = require('recurrent');
 
-// will manager a queue called q and serve a web UI on port 7654
+// will manage a queue called q and serve a web UI on port 7654
 
 var m = new recurrent.Manager('q', 7654);
 m.go();
