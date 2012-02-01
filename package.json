@@ -4,7 +4,7 @@
   "keywords": ["job", "manager", "recurrent", "persistent", "redis"],
   "homepage": "http://perceptiveconstructs.com",
   "description": "redis-backed recurrent job manager",
-  "main": "sorted-queue.js",
+  "main": "recurrent.js",
   "repository": {
     "type": "git",
     "url": "https://pconstr@bitbucket.org/pconstr/recurrent.git"
