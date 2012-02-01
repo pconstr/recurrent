@@ -8,7 +8,6 @@
 var http = require('http');
 var url = require('url');
 
-var static = require('node-static');
 var redis  = require('redis');
 
 var countdown = require('countdown');
@@ -103,7 +102,6 @@ function Manager(queueName) {
   var inPick = false;
 
   function pickTimeout() {
-    inPickTimeout = true;
     if(pickTimeoutId !== null) {
       clearTimeout(pickTimeoutId);
       pickTimeoutId = null;
