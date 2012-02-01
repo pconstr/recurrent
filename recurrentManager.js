@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var http = require('http');
 var url = require('url');
 
@@ -35,9 +37,9 @@ function Manager(queueName) {
   function isTimeboxEnd(t) {
     return Math.floor(t) !== t;
   }
-  
+
   function handleList() {
-  
+
     console.error('pulling from', addListKey);
 
     // FIXME: what if the manager crashes before processing this message? don't just pop it, move it to a separate queue
@@ -57,10 +59,10 @@ function Manager(queueName) {
         return process.nextTick(handleList);
       }
       console.error('m',m);
-      
+
       var taskId = m.id;
       var taskWhen = m.when;
-      
+
       if(taskId === undefined) {
         console.error('undefined taskId');
         return process.nextTick(handleList);
@@ -176,14 +178,14 @@ function Manager(queueName) {
       }
 
       var now = new Date().getTime();
-      
+
       if(result.length === 0) {
         console.error('nothing yet to pick');
         return cb(null, now);
       }
 
       console.log('result', result);
-      
+
       var taskId = result[0];
       var targetTime = parseFloat(result[1]);
 
@@ -204,18 +206,18 @@ function Manager(queueName) {
       }
 
       var tbTime = now + timebox + 0.5;
-      console.log('zadd(2)', tbTime, 'on', taskId); 
+      console.log('zadd(2)', tbTime, 'on', taskId);
       zsetClient.zadd(zsetKey, tbTime , taskId, function(err, result) {
         if(err)
           throw err; // FIXME - handle this properly
         console.log('zadd(2) successful');
         taskCache[taskId] = tbTime;
-        console.error('will check on', taskId, 'at', tbTime);        
+        console.error('will check on', taskId, 'at', tbTime);
         return cb(tbTime, now);
       });
     });
   }
-  
+
   function handlezset() {
     pickTimeout();
   }
@@ -277,7 +279,7 @@ function Manager(queueName) {
       res.writeHead(404, {'Content-Type': 'text/plain'});
       return res.end('page not found');
     }
-  }).listen(9999);
+  }).listen(7654);
 }
 
 var m = new Manager('q');
