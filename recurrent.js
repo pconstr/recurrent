@@ -1,3 +1,8 @@
+/* Copyright 2011 Carlos Guerreiro
+   All rights reserved */
+
+'use strict';
+
 var redis  = require('redis');
 
 function Worker(queueName) {
@@ -66,7 +71,7 @@ function Client(queueName) {
     if(typeof when !== 'number' || Math.floor(when) !== when) {
       process.nextTick(function() { cb('when must be an integer'); });
     } else {
-        client.rpush(listKey, JSON.stringify({id: id, when:when}), cb);
+      client.rpush(listKey, JSON.stringify({id: id, when:when}), cb);
     }
   };
 }

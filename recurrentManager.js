@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+/* Copyright 2011 Carlos Guerreiro
+   All rights reserved */
+
 'use strict';
 
 var http = require('http');

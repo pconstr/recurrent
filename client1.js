@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+/* Copyright 2011 Carlos Guerreiro
+   All rights reserved */
+
+'use strict';
+
 var recurrent = require('./recurrent.js');
 
 var c = new recurrent.Client('q');

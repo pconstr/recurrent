@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+/* Copyright 2011 Carlos Guerreiro
+   All rights reserved */
+
+'use strict';
+
 var recurrent = require('./recurrent.js');
 
 var w = new recurrent.Worker('q');
@@ -11,4 +16,3 @@ w.do = function(taskId, cb) {
   }, 6000);
 };
 w.go();
-
