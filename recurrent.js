@@ -167,6 +167,46 @@ function Manager(queueName, port) {
     });
   }
 
+  function putBack(taskId) {
+    console.log('putting', taskId, 'back in pending queue');
+    zsetClient.watch(takenListKey, function(err, result) {
+      if(err) {
+        console.error(err);
+        // FIXME: deal with this;
+        throw err;
+      }
+      zsetClient.lrange(takenListKey, 0, 10000, function(err, taken) {
+        if(err) {
+          console.error(err);
+          // FIXME: deal with this;
+          throw err;
+        }
+        console.log('taken', taken);
+        if(taken.indexOf(taskId) !== -1) {
+          console.log(taskId, 'is still taken');
+
+          zsetClient.multi()
+            .lrem(takenListKey, 0, taskId)
+            .rpush(pendingListKey, taskId, function(err, result) {
+              if(err) {
+                console.error(err);
+                // FIXME: handle this;
+                return
+              }
+              console.log(taskId, 'back in pending queue');
+            })
+            .exec(function(err, results) {
+              console.log('results', results);
+            });
+
+        } else {
+          zsetClient.unwatch();
+          console.log(taskId, 'is not taken...');
+        }
+      });
+    });
+  }
+
   var inPick = false;
 
   function pickTimeout() {
@@ -269,7 +309,7 @@ function Manager(queueName, port) {
 
       if(isTb) {
         console.error(taskId, 'taking too long');
-        // FIXME: check if it was picked up
+        putBack(taskId);
       } else {
         exec(taskId);
       }
