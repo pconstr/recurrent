@@ -6,7 +6,7 @@
 
 'use strict';
 
-var recurrent = require('./recurrent.js');
+var recurrent = require('../recurrent.js');
 
 var m = new recurrent.Manager('q', 6789);
 

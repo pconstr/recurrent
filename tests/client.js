@@ -5,7 +5,7 @@
 
 'use strict';
 
-var recurrent = require('./recurrent.js');
+var recurrent = require('../recurrent.js');
 
 var c = new recurrent.Client('q');
 
