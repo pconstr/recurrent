@@ -8,6 +8,7 @@
 var recurrent = require('../recurrent.js');
 
 var w = new recurrent.Worker('q');
+w.debug = true;
 
 w.do = function(taskId, cb) {
   setTimeout(function() {
