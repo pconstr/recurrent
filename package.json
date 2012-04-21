@@ -14,5 +14,11 @@
   },
   "private": true,
   "author": "Carlos Guerreiro <carlos@perceptiveconstructs.com (http://perceptiveconstructs.com)",
-  "dependencies": {"hiredis":"0.1.13", "redis":"0.7.1", "node-static": "0.5.9", "socket.io": "0.8.7", "countdown": "2.2.0"}
+  "dependencies": {
+    "hiredis":"0.1.13",
+    "redis":"git+ssh://git@github.com:pconstr/node_redis.git#multi-callback",
+    "node-static": "0.5.9",
+    "socket.io": "0.8.7",
+    "countdown": "2.2.0"
+  }
 }
