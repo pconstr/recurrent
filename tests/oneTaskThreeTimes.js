@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 /* Copyright 2011-2012 Carlos Guerreiro
-   All rights reserved */
+ *   http://perceptiveconstructs.com
+ * Licensed under the MIT license */
 
 'use strict';
 
