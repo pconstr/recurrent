@@ -55,7 +55,7 @@ q.add('t1', new Date().getTime() + 30000, function(err) {
 });
 
 
-working recurrent jobs
+recurrent jobs workers
 ----------------------
 
 <pre>
