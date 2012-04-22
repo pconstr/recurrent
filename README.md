@@ -49,8 +49,8 @@ var recurrent = require('recurrent');
 
 // starts a job which will run for the first time in about 30s
 
-var q = new recurrent.Client('q');
-q.add('t1', new Date().getTime() + 30000, function(err) {
+var c = new recurrent.Client('q');
+c.add('t1', new Date().getTime() + 30000, function(err) {
   ...
 });
 
@@ -61,9 +61,9 @@ recurrent jobs workers
 <pre>
 var recurrent = require('recurrent');
 
-var q = new recurrent.Worker('q');
+var w = new recurrent.Worker('q');
 
-q.do = function(taskId, cb) {
+w.do = function(taskId, cb) {
   // do nothing for 600s
   setTimeout(function() {
     console.error('completed', taskId);
@@ -73,7 +73,7 @@ q.do = function(taskId, cb) {
   }, 600);
 };
 
-q.go();
+w.go();
 
 </pre>
 
