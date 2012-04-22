@@ -12,6 +12,12 @@ features
 * failed job runs are repeated until they succeed or give up
 * job retries don't pile up with repetitions
 * the job implementation determines at the end of each run when (and whether) to repeat
+* as many worker processes as you want spread over multiple cores and machines - but you have to start them
+
+caveats
+-------
+
+* single point of failure in queue manager - you need to make sure it stays up / restarts
 
 installing
 ----------
