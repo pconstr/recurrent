@@ -1,4 +1,4 @@
-/* Copyright 2011 Carlos Guerreiro
+/* Copyright 2011-2012 Carlos Guerreiro
    All rights reserved */
 
 'use strict';
