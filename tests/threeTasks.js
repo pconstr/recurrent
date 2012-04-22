@@ -29,17 +29,19 @@ startRedis(function(err, redis) {
   var counts = {};
   w.do = function(taskId, cb) {
     assert(counts.hasOwnProperty(taskId));
-    counts[taskId]++;
-    if(_.min(counts) < 3) {
-      cb(null, new Date().getTime()+ 3000 + i * 1000);
-    } else {
-      cb(null, null);
+    setTimeout(function() {
+      counts[taskId]++;
+      if(_.min(counts) < 3) {
+        cb(null, new Date().getTime()+ 3000 + i * 1000);
+      } else {
+        cb(null, null);
 
-      w.stop();
-      m.stop();
-      redis.stop();
-      console.log('OK');
-    }
+        w.stop();
+        m.stop();
+        redis.stop();
+        console.log('OK');
+      }
+    }, 500);
   };
   w.go();
 

@@ -28,17 +28,19 @@ startRedis(function(err, redis) {
   var count = 0;
   w.do = function(taskId, cb) {
     assert.equal(taskId, 't1');
-    count++;
-    if(count < 3) {
-      cb(null, new Date().getTime()+ 5000);
-    } else {
-      cb(null, null);
+    setTimeout(function() {
+      count++;
+      if(count < 3) {
+        cb(null, new Date().getTime()+ 5000);
+      } else {
+        cb(null, null);
 
       w.stop();
-      m.stop();
-      redis.stop();
-      console.log('OK');
-    }
+        m.stop();
+        redis.stop();
+        console.log('OK');
+      }
+    }, 500);
   };
   w.go();
 
