@@ -17,8 +17,8 @@ c.add('t1', new Date().getTime() + 30000, function(err, results) {
     console.error(results);
   --remaining;
   if (remaining === 0) {
-    console.error('quitting');
-    c.quit();
+    console.error('stopping');
+    c.stop();
   }
 });
 c.add('t2', new Date().getTime() + 15000, function(err, results) {
@@ -28,7 +28,7 @@ c.add('t2', new Date().getTime() + 15000, function(err, results) {
     console.error(results);
   --remaining;
   if (remaining === 0) {
-    console.error('quitting');
-    c.quit();
+    console.error('stopping');
+    c.stop();
   }
 });
