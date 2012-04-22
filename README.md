@@ -3,7 +3,7 @@ recurrent
 
 a redis-backed manager of recurrent jobs, for [node.js](http://nodejs.org)
 
-(immature, with very minimal testing and probably nasty bugs)
+(immature, with minimal testing and probably nasty bugs)
 
 features
 --------
