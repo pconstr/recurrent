@@ -17,7 +17,7 @@ features
 caveats
 -------
 
-* single point of failure in queue manager - you need to make sure it stays up / restarts
+* single point of failure in queue manager, and redis itself - you need to make sure both stay up / restart quickly and there's exactly 1 instance of each running
 
 installing
 ----------
@@ -76,9 +76,3 @@ w.do = function(taskId, cb) {
 w.go();
 
 </pre>
-
-
-limitations
-------------
-
-`recurrentManager.js` is a single point of failure in addition to redis itself, exactly 1 instance of each needs to be running
