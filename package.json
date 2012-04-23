@@ -7,7 +7,7 @@
   "main": "recurrent.js",
   "repository": {
     "type": "git",
-    "url": "https://pconstr@bitbucket.org/pconstr/recurrent.git"
+    "url": "https://github.com/pconstr/recurrent"
   },
   "engines": {
     "node": ">=0.4.0 <0.7.0"
@@ -27,6 +27,14 @@
     {
       "type": "MIT",
       "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs" : { "url" : "https://github.com/pconstr/recurrent/issues" },
+  "contributors": [
+    {
+      "name": "Carlos Guerreiro",
+      "email": "carlos@perceptiveconstructs.com",
+      "web": "http://perceptiveconstructs.com"
     }
   ],
   "scripts": {
