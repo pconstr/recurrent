@@ -38,7 +38,7 @@ var m = new recurrent.Manager('q', 7654);
 </pre>
 
 
-browse to `localhost:7654`
+browse to `localhost:7654` (very incomplete)
 
 when the manager is not needed anymore:
 
