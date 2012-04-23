@@ -24,9 +24,9 @@ startRedis(function(err, redis) {
 
   var m = new recurrent.Manager('q', 6789);
 
-  var w = new recurrent.Worker('q');
   var count = 0;
-  w.do = function(taskId, cb) {
+
+  function doWork(taskId, cb) {
     assert.equal(taskId, 't1');
     setTimeout(function() {
       count++;
@@ -41,7 +41,9 @@ startRedis(function(err, redis) {
         console.log('OK');
       }
     }, 500);
-  };
+  }
+
+  var w = new recurrent.Worker('q', doWork);
 
   var c = new recurrent.Client('q');
   c.add('t1', new Date().getTime()+ 500, function(err, results) {

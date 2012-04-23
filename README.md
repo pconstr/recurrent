@@ -72,17 +72,17 @@ recurrent jobs workers
 <pre>
 var recurrent = require('recurrent');
 
-var w = new recurrent.Worker('q');
-
-w.do = function(taskId, cb) {
+function doWork(taskId, cb) {
   // do nothing for 600s
-  setTimeout(function() {
+  setTimeout(function () {
     console.error('completed', taskId);
 
-    // follow up in about 5s
+    // do again in about 5s
     cb(null, new Date().getTime()+ 5000);
   }, 600);
-};
+}
+
+var w = new recurrent.Worker('q', doWork);
 </pre>
 
 when the job worker is not needed any more:

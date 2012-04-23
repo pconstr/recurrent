@@ -25,9 +25,9 @@ startRedis(function(err, redis) {
 
   var m = new recurrent.Manager('q', 6789);
 
-  var w = new recurrent.Worker('q');
   var counts = {};
-  w.do = function(taskId, cb) {
+
+  function doWork(taskId, cb) {
     assert(counts.hasOwnProperty(taskId));
     setTimeout(function() {
       counts[taskId]++;
@@ -42,7 +42,9 @@ startRedis(function(err, redis) {
         console.log('OK');
       }
     }, 500);
-  };
+  }
+
+  var w = new recurrent.Worker('q', doWork);
 
   var c = new recurrent.Client('q');
   var i;
