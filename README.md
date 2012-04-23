@@ -1,11 +1,11 @@
 recurrent
 =========
 
-a redis-backed manager of recurrent jobs, for [node.js](http://nodejs.org)
+A redis-backed manager of recurrent jobs, for [node.js](http://nodejs.org).
 
 (immature, with minimal testing and probably nasty bugs)
 
-features
+Features
 --------
 
 * multiple queues, backed up by redis
@@ -14,20 +14,20 @@ features
 * the worker's job implementation determines at the end of each run when (and whether) to repeat
 * as many worker processes as you want spread over multiple cores and machines - but you have to start them
 
-caveats
+Caveats
 -------
 
 * single point of failure in queue manager, and redis itself - you need to make sure both stay up / restart quickly and there's exactly 1 instance of each running
 
-installing
+Installing
 ----------
 
 `npm install recurrent`
 
-running the manager
+Running the manager
 -------------------
 
-make sure redis is running and then:
+Make sure redis is running and then:
 
 <pre>
 var recurrent = require('recurrent');
@@ -37,10 +37,9 @@ var recurrent = require('recurrent');
 var m = new recurrent.Manager('q', 7654);
 </pre>
 
+Browse to `localhost:7654` (very incomplete).
 
-browse to `localhost:7654` (very incomplete)
-
-when the manager is not needed anymore:
+When the manager is not needed anymore:
 
 <pre>
 m.stop()
@@ -60,15 +59,15 @@ c.add('t1', new Date().getTime() + 30000, function(err) {
 });
 </pre>
 
-adding again the same ´taskId´ will reset execution time
+Adding again the same ´taskId´ will reset execution time.
 
-when the client is not needed any more:
+When the client is not needed any more:
 
 <pre>
 c.stop();
 </pre>
 
-recurrent jobs workers
+Recurrent jobs workers
 ----------------------
 
 <pre>
@@ -87,7 +86,7 @@ function doWork(taskId, cb) {
 var w = new recurrent.Worker('q', doWork);
 </pre>
 
-when the job worker is not needed any more:
+When the job worker is not needed any more:
 
 <pre>
 w.stop();
