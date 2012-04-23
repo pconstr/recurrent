@@ -17,7 +17,7 @@ Features
 Caveats
 -------
 
-* single point of failure in queue manager (as well asredis itself) - you need to make sure it stays up / restarts quickly and there's exactly 1 instance
+* single point of failure in queue manager (as well as redis itself) - you need to make sure it stays up / restarts quickly and there's exactly 1 instance
 
 Installing
 ----------
