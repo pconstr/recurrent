@@ -10,7 +10,7 @@ features
 
 * multiple queues, backed up by redis
 * failed job runs are retried until they succeed or give up
-* job retries don't pile up with repetitions
+* job retries and repetitions don't pile up
 * the job implementation determines at the end of each run when (and whether) to repeat
 * as many worker processes as you want spread over multiple cores and machines - but you have to start them
 
