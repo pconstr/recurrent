@@ -60,6 +60,8 @@ c.add('t1', new Date().getTime() + 30000, function(err) {
 });
 </pre>
 
+adding again the same ´taskId´ will reset execution time
+
 when the client is not needed any more:
 
 <pre>
