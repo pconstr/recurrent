@@ -35,7 +35,6 @@ var recurrent = require('recurrent');
 // will manage a queue called q and serve a web UI on port 7654
 
 var m = new recurrent.Manager('q', 7654);
-m.go();
 </pre>
 
 
@@ -72,7 +71,5 @@ w.do = function(taskId, cb) {
     cb(null, new Date().getTime()+ 5000);
   }, 600);
 };
-
-w.go();
 
 </pre>
