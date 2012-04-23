@@ -40,6 +40,12 @@ var m = new recurrent.Manager('q', 7654);
 
 browse to `localhost:9999/7654`
 
+when the manager is not needed anymore:
+
+<pre>
+m.stop()
+</pre>
+
 starting a recurrent job
 ------------------------
 
@@ -52,7 +58,13 @@ var c = new recurrent.Client('q');
 c.add('t1', new Date().getTime() + 30000, function(err) {
   ...
 });
+</pre>
 
+when the client is not needed any more:
+
+<pre>
+c.stop();
+</pre>
 
 recurrent jobs workers
 ----------------------
@@ -71,5 +83,10 @@ w.do = function(taskId, cb) {
     cb(null, new Date().getTime()+ 5000);
   }, 600);
 };
+</pre>
 
+when the job worker is not needed any more:
+
+<pre>
+w.stop();
 </pre>
