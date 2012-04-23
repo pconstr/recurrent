@@ -1,7 +1,7 @@
 recurrent
 =========
 
-A redis-backed manager of recurrent jobs, for [node.js](http://nodejs.org).
+A [redis](http://redis.io)-backed manager of recurrent jobs, for [node.js](http://nodejs.org).
 
 (immature, with minimal testing and probably nasty bugs)
 
