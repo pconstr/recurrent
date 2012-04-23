@@ -16,7 +16,7 @@
   "author": "Carlos Guerreiro <carlos@perceptiveconstructs.com (http://perceptiveconstructs.com)",
   "dependencies": {
     "hiredis":"0.1.13",
-    "redis":"git+ssh://git@github.com:pconstr/node_redis.git#multi-callback",
+    "redis":"0.7.1",
     "countdown": "2.2.0"
   },
   "devDependencies" : {
