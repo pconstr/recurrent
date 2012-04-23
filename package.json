@@ -15,7 +15,7 @@
   "private": true,
   "author": "Carlos Guerreiro <carlos@perceptiveconstructs.com (http://perceptiveconstructs.com)",
   "dependencies": {
-    "hiredis":"0.1.13",
+    "hiredis":"0.1.14",
     "redis":"0.7.1",
     "countdown": "2.2.0"
   },
