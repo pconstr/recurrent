@@ -9,7 +9,8 @@ Features
 --------
 
 * multiple queues, backed up by redis
-* failed job runs are retried until they succeed or give up
+* tasks have a permanent unique id and mutable associated data
+* failed job runs are retried until they succeed or give up, with exponential back-off
 * job retries and repetitions don't pile up
 * the worker's job implementation determines at the end of each run when (and whether) to repeat
 * as many worker processes as you want spread over multiple cores and machines - but you have to start them
@@ -64,7 +65,7 @@ var recurrent = require('recurrent');
 var c = new recurrent.Client('q').connect();
 # pass arguments for redis.createClient() to connect()
 
-c.add('t1', new Date().getTime() + 30000, function(err) {
+c.add('t1', new Date().getTime() + 30000, {my: 'data'}, function(err) {
   ...
 });
 </pre>
@@ -83,10 +84,11 @@ Recurrent jobs workers
 <pre>
 var recurrent = require('recurrent');
 
-function doWork(taskId, cb) {
+function doWork(task, cb) {
   // do nothing for 600s
+  console.log('got', task.id, 'with this data: ', task.data);
   setTimeout(function () {
-    console.error('completed', taskId);
+    console.error('completed', task.id);
 
     // do again in about 5s
     cb(null, new Date().getTime()+ 5000);
@@ -103,3 +105,35 @@ When the job worker is not needed any more:
 <pre>
 w.stop();
 </pre>
+
+
+Task failure
+------------
+
+Workers must not throw.
+
+To signal failure a worker calls back an error.
+It can specify a retry time:
+
+<pre>
+cb('something went wrong', new Date().getTime()+ 1000); // retry in 1s
+</pre>
+
+Or let `recurrent do exponential back-off`
+
+<pre>
+cb('something went wrong');
+</pre>
+
+Exponential back-off can be configured per worker:
+
+<pre>
+var w = new recurrent.Worker('q', doWork, {
+  minBackOff: 500, //  start backing off at 500 ms
+  maxBackOff:5000, // max back-off of 5 s
+  backOffMultiplier:1.5 // back-off 50% longer every time
+}).connect();
+</pre>
+
+When a task is being retried after failure `task.retries` contains how many retries have been attempted (including the current one).
+It will `undefined` for the first execution, `1` for the first retry and so on.

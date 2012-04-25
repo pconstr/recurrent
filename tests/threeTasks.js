@@ -27,10 +27,12 @@ startRedis(function(err, redis) {
 
   var counts = {};
 
-  function doWork(taskId, cb) {
-    assert(counts.hasOwnProperty(taskId));
+  function doWork(task, cb) {
+    assert.deepEqual(task.data, {d: task.id});
+    assert.equal(task.retries, undefined);
+    assert(counts.hasOwnProperty(task.id));
     setTimeout(function() {
-      counts[taskId]++;
+      counts[task.id]++;
       if(_.min(counts) < 3) {
         cb(null, new Date().getTime()+ 3000 + i * 1000);
       } else {
@@ -50,7 +52,7 @@ startRedis(function(err, redis) {
   var i;
   for(i = 1; i <=3 ; ++i) {
     counts['t'+ i] = 0;
-    c.add('t'+ i, new Date().getTime()+ 200 * i, function(err, results) {
+    c.add('t'+ i, new Date().getTime()+ 200 * i, {d: 't'+ i}, function(err, results) {
       if(err) {
         throw err;
       }

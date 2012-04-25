@@ -26,17 +26,18 @@ startRedis(function(err, redis) {
 
   var count = 0;
 
-  function doWork(taskId, cb) {
-    assert.equal(taskId, 't1');
+  function doWork(task, cb) {
+    assert.equal(task.id, 't1');
+    assert.deepEqual(task.data, {d:'t1'});
     setTimeout(function() {
       count++;
-      if(count === 3) {
+      if(count === 6) {
         cb(null, null);
         w.stop();
         m.stop();
         redis.stop();
         console.log('OK');
-      } else if(count === 2) {
+      } else if(count >=2 && count < 5) {
         cb('something went wrong');
       } else {
         cb(null, new Date().getTime()+ 5000);
@@ -44,10 +45,10 @@ startRedis(function(err, redis) {
     }, 500);
   }
 
-  var w = new recurrent.Worker('q', doWork).connect(6363);
+  var w = new recurrent.Worker('q', doWork, {minBackOff: 500, maxBackOff:1000, backOffMultiplier:2}).connect(6363);
 
   var c = new recurrent.Client('q').connect(6363);
-  c.add('t1', new Date().getTime()+ 500, function(err, results) {
+  c.add('t1', new Date().getTime()+ 500, {d: 't1'}, function(err, results) {
     if(err) {
       throw err;
     }

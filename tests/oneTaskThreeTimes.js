@@ -26,8 +26,10 @@ startRedis(function(err, redis) {
 
   var count = 0;
 
-  function doWork(taskId, cb) {
-    assert.equal(taskId, 't1');
+  function doWork(task, cb) {
+    assert.equal(task.id, 't1');
+    assert.equal(task.data, undefined);
+    assert.equal(task.retries, undefined);
     setTimeout(function() {
       count++;
       if(count < 3) {
