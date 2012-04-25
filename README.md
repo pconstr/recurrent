@@ -34,10 +34,16 @@ var recurrent = require('recurrent');
 
 // will manage a queue called q and serve a web UI on port 7654
 
-var m = new recurrent.Manager('q', 7654);
+var m = new recurrent.Manager('q').webUI(7654);
 </pre>
 
-Browse to `localhost:7654` (very incomplete).
+`recurrent` offers a (currently very incomplete) web UI:
+
+<pre>
+http.createServer(m.webUI).listen(7654);
+</pre>
+
+And then browse to `localhost:7654`
 
 When the manager is not needed anymore:
 

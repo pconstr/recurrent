@@ -23,7 +23,7 @@ startRedis(function(err, redis) {
     process.exit(1);
   });
 
-  var m = new recurrent.Manager('q', 6789);
+  var m = new recurrent.Manager('q');
 
   var counts = {};
 
