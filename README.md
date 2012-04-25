@@ -32,9 +32,11 @@ Make sure redis is running and then:
 <pre>
 var recurrent = require('recurrent');
 
-// will manage a queue called q and serve a web UI on port 7654
+// will manage a queue `q`
 
-var m = new recurrent.Manager('q').webUI(7654);
+var m = new recurrent.Manager('q').connect();
+# pass arguments for redis.createClient() to connect()
+
 </pre>
 
 `recurrent` offers a (currently very incomplete) web UI:
@@ -59,7 +61,9 @@ var recurrent = require('recurrent');
 
 // starts a job which will run for the first time in about 30s
 
-var c = new recurrent.Client('q');
+var c = new recurrent.Client('q').connect();
+# pass arguments for redis.createClient() to connect()
+
 c.add('t1', new Date().getTime() + 30000, function(err) {
   ...
 });
@@ -89,7 +93,9 @@ function doWork(taskId, cb) {
   }, 600);
 }
 
-var w = new recurrent.Worker('q', doWork);
+var w = new recurrent.Worker('q', doWork).connect();
+# pass arguments for redis.createClient to connect()
+
 </pre>
 
 When the job worker is not needed any more:

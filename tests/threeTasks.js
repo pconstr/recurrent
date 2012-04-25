@@ -23,7 +23,7 @@ startRedis(function(err, redis) {
     process.exit(1);
   });
 
-  var m = new recurrent.Manager('q');
+  var m = new recurrent.Manager('q').connect(6363);
 
   var counts = {};
 
@@ -44,9 +44,9 @@ startRedis(function(err, redis) {
     }, 500);
   }
 
-  var w = new recurrent.Worker('q', doWork);
+  var w = new recurrent.Worker('q', doWork).connect(6363);
 
-  var c = new recurrent.Client('q');
+  var c = new recurrent.Client('q').connect(6363);
   var i;
   for(i = 1; i <=3 ; ++i) {
     counts['t'+ i] = 0;
