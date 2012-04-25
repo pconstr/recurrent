@@ -54,7 +54,7 @@ When the manager is not needed anymore:
 m.stop()
 </pre>
 
-starting a recurrent job
+Starting a recurrent job
 ------------------------
 
 <pre>
@@ -70,7 +70,7 @@ c.add('t1', new Date().getTime() + 30000, {my: 'data'}, function(err) {
 });
 </pre>
 
-Adding again the same ´taskId´ will reset execution time.
+Adding again the same `taskId` will reset execution time.
 
 When the client is not needed any more:
 
@@ -78,8 +78,8 @@ When the client is not needed any more:
 c.stop();
 </pre>
 
-Recurrent jobs workers
-----------------------
+Recurrent job workers
+---------------------
 
 <pre>
 var recurrent = require('recurrent');
@@ -112,14 +112,14 @@ Task failure
 
 Workers must not throw.
 
-To signal failure a worker calls back an error.
+To signal failure a worker calls back with error.
 It can specify a retry time:
 
 <pre>
 cb('something went wrong', new Date().getTime()+ 1000); // retry in 1s
 </pre>
 
-Or let `recurrent do exponential back-off`
+Or let `recurrent` do exponential back-off
 
 <pre>
 cb('something went wrong');
