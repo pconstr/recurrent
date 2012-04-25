@@ -2,7 +2,7 @@
   "name": "recurrent",
   "version": "0.1.0",
   "keywords": ["job", "manager", "recurrent", "persistent", "redis"],
-  "homepage": "http://perceptiveconstructs.com",
+  "homepage": "https://github.com/pconstr/recurrrent",
   "description": "redis-backed recurrent job manager",
   "main": "recurrent.js",
   "repository": {
