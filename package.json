@@ -38,6 +38,6 @@
     }
   ],
   "scripts": {
-    "test": "cd ./tests && ./oneTaskThreeTimes.js && ./threeTasks.js"
+    "test": "cd ./tests && ./oneTaskThreeTimes.js && ./threeTasks.js && ./taskFailure.js"
   }
 }
