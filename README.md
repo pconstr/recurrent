@@ -1,6 +1,8 @@
 recurrent
 =========
 
+[![Build Status](https://secure.travis-ci.org/pconstr/recurrent.png)](http://travis-ci.org/pconstr/recurrent)
+
 A [redis](http://redis.io)-backed manager of recurrent jobs, for [node.js](http://nodejs.org).
 
 (immature, with minimal testing and probably nasty bugs)
