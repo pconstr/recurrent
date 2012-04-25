@@ -1,8 +1,8 @@
 {
   "name": "recurrent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": ["job", "manager", "recurrent", "persistent", "redis"],
-  "homepage": "https://github.com/pconstr/recurrrent",
+  "homepage": "https://github.com/pconstr/recurrent",
   "description": "redis-backed recurrent job manager",
   "main": "recurrent.js",
   "repository": {
