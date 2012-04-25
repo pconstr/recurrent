@@ -33,7 +33,7 @@ Make sure redis is running and then:
 <pre>
 var recurrent = require('recurrent');
 
-// will manage a queue `q`
+// will manage a queue q
 
 var m = new recurrent.Manager('q').connect();
 # pass arguments for redis.createClient() to connect()
