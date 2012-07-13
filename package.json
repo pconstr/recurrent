@@ -1,6 +1,6 @@
 {
   "name": "recurrent",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "keywords": ["job", "manager", "recurrent", "persistent", "redis"],
   "homepage": "https://github.com/pconstr/recurrent",
   "description": "redis-backed recurrent job manager",
@@ -10,7 +10,7 @@
     "url": "https://github.com/pconstr/recurrent"
   },
   "engines": {
-    "node": ">=0.4.0 <0.7.0"
+    "node": ">=0.4.0 <0.9.0"
   },
   "author": "Carlos Guerreiro <carlos@perceptiveconstructs.com (http://perceptiveconstructs.com)",
   "dependencies": {
